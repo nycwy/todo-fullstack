@@ -14,6 +14,7 @@ const port = process.env.PORT || 8000
 connectDB();
 
 app.use('/api/todos', todoRoutes);
+app.use('/api/todos', todoRoutes);
 
 app.listen(port, () => {
     console.log(`Server started at port: ${port}`)

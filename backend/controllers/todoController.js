@@ -16,4 +16,15 @@ const createTodo = async (req, res) => {
     }
 };
 
-export { createTodo };
+//Read Todo
+const getAllTodos = async (req, res) => {
+    try {
+        const todos = await Todo.find({});
+        res.status(200).json({ count: todos.length, data: todos });
+    } catch (error) {
+        console.log("Error fetching todos", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
+export { createTodo, getAllTodos };
