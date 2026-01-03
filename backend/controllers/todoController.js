@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Todo } from "../models/TodoModel.js";
 
 //Create Todo
@@ -43,4 +44,29 @@ const getTodoById = async (req, res) => {
     }
 };
 
-export { createTodo, getAllTodos, getTodoById };
+// Update Todo
+const updateTodo = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.isValidObjectId(id)) {
+        return res.status(404).json({ error: "No such todo" });
+    }
+
+    try {
+        const todo = await Todo.findOneAndUpdate(
+            { _id: id },
+            { ...req.body },
+            { new: true }
+        )
+
+        if (!todo) {
+            return res.status(404).json({ error: "No such todo" });
+        }
+
+        res.status(200).json(todo);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+export { createTodo, getAllTodos, getTodoById, updateTodo };
