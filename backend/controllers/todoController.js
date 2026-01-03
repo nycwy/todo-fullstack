@@ -67,6 +67,23 @@ const updateTodo = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
+};
+
+//Delete Todo by ID
+const deleteTodo = async (req, res) => {
+    const { id } = req.params;
+    if (!mongoose.isValidObjectId(id)) {
+        return res.status(404).json({error: "No such todo"})
+    }
+    try {
+        const todo = await Todo.findOneAndDelete({ _id: id });
+        if (!todo) {
+            return res.status(404).json({ error: "No such todo" });
+        }
+        res.status(200).json({ message: "Todo deleted successfully", todo });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 }
 
-export { createTodo, getAllTodos, getTodoById, updateTodo };
+export { createTodo, getAllTodos, getTodoById, updateTodo, deleteTodo };
