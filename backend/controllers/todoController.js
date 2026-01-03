@@ -27,4 +27,20 @@ const getAllTodos = async (req, res) => {
     }
 };
 
-export { createTodo, getAllTodos };
+//Read by ID, Specific Todo --> (Optional) here
+const getTodoById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const todo = await Todo.findById(id);
+
+        if (!todo) {
+            return res.status(404).json({ message: "Todo not found" });
+        }
+        res.status(200).json(todo);
+    } catch (error) {
+        console.error("Error fetching todo:", error);
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
+export { createTodo, getAllTodos, getTodoById };
