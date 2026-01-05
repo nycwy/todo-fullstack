@@ -1,11 +1,12 @@
 import { useState } from "react"
+import TodoList from "./TodoList";
 
 export default function TodoForm() {
     const [title, setTitle] = useState('');
     const [priority, setPriority] = useState('Medium');
     const [isCompleted, setIsCompleted] = useState(false);
 
-const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const todo = { title, priority, isCompleted };
@@ -25,6 +26,7 @@ const handleSubmit = async (e) => {
             setPriority('Medium');
             setIsCompleted(false);
             console.log('New todo added:', json);
+            <TodoList todo={todo} />
         } else {
             console.log('Failed to add todo');
         }
@@ -32,7 +34,7 @@ const handleSubmit = async (e) => {
 
     return (
         <>
-            <form action="post" className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md border border-slate-200 mt-10" onSubmit={handleSubmit}>
+            <form action="post" className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md border border-slate-200 mt-6" onSubmit={handleSubmit}>
                 <h2 className="text-2xl font-bold mb-6 text-slate-800 text-center">Add a New Task</h2>
                 <div className="mb-4">
                     <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">Task Title: </label>
@@ -58,7 +60,7 @@ const handleSubmit = async (e) => {
                     </select>
                 </div>
 
-                <div className="flex items-center mb-6">
+                {/* <div className="flex items-center mb-6">
                     <label
                         htmlFor="isCompleted"
                         className="ml-2 block text-sm text-slate-700 font-medium cursor-pointer"
@@ -68,10 +70,10 @@ const handleSubmit = async (e) => {
                         onChange={(e) => setIsCompleted(e.target.checked)}
                         checked={isCompleted}
                         id="isCompleted"
-                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        className="w-4 h-4 text-teal-900 border-gray-300 rounded focus:ring-indigo-500"
                     />
-                </div>
-                <button className="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700 transition duration-200">Add Task</button>
+                </div> */}
+                <button className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded transition duration-200">Add Task</button>
             </form>
         </>
     )
